@@ -1,0 +1,121 @@
+.toast-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    pointer-events: none;
+}
+
+.toast {
+    width: 320px;
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    opacity: 0;
+    animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    border-left: 5px solid transparent;
+    pointer-events: all;
+    position: relative;
+    overflow: hidden;
+}
+
+.toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-right: 12px;
+}
+
+.toast strong {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.4;
+}
+
+.toast p {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+    margin: 0;
+}
+
+.toast-close {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    margin-top: -4px;
+    margin-right: -4px;
+}
+
+.toast-close:hover {
+    color: var(--color-text);
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Tipos de Toast */
+.toast-success {
+    border-left-color: var(--color-success);
+    background: #f0fdf4;
+}
+
+.toast-success strong {
+    color: #166534;
+}
+
+.toast-success p {
+    color: #15803d;
+}
+
+.toast-error {
+    border-left-color: var(--color-danger);
+    background: #fef2f2;
+}
+
+.toast-error strong {
+    color: #991b1b;
+}
+
+.toast-error p {
+    color: #b91c1c;
+}
+
+.toast-info {
+    border-left-color: var(--color-primary);
+    background: #eff6ff;
+}
+
+.toast-info strong {
+    color: #1e40af;
+}
+
+.toast-info p {
+    color: #1d4ed8;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

@@ -1,14 +1,15 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
+import { api } from '../services/api'
+import { useToast } from './ToastContext'
 import type { IUsuario } from '../types'
-import { MOCK_USUARIOS } from '../services/mockData'
 
 type NovoUsuario = Omit<IUsuario, 'id'>
 
 interface UserContextData {
     users: IUsuario[];
-    deleteUser: (id: string | number) => void;
-    addUser: (usuario: NovoUsuario) => void;
-    updateUser: (usuario: IUsuario) => void;
+    deleteUser: (id: string | number) => Promise<void>;
+    addUser: (usuario: NovoUsuario) => Promise<void>;
+    updateUser: (usuario: IUsuario) => Promise<void>;
 }
 
 const UserContext = createContext({} as UserContextData)
@@ -18,39 +19,56 @@ interface UserProviderProps {
 }
 
 export function UserProvider({ children }: UserProviderProps) {
-    const [users, setUsers] = useState<IUsuario[]>(MOCK_USUARIOS)
+    const [users, setUsers] = useState<IUsuario[]>([])
+    const { addToast } = useToast()
 
-    function deleteUser(id: string | number) {
-        setUsers((lista) => lista.filter((user) => user.id !== id))
-    }
+    useEffect(() => {
+        api.get('/users')
+            .then(response => setUsers(response.data))
+            .catch(() => addToast({ type: 'error', title: 'Erro', description: 'Falha ao carregar usuários' }))
+    }, [addToast])
 
-    function addUser(usuario: NovoUsuario) {
-        const novoUsuarioComId: IUsuario = {
-            ...usuario,
-            id: new Date().getTime(),
+    async function deleteUser(id: string | number) {
+        try {
+            await api.delete(`/users/${id}`)
+            setUsers((lista) => lista.filter((user) => user.id !== id))
+            addToast({ type: 'success', title: 'Sucesso', description: 'Usuário removido.' })
+        } catch (error) {
+            addToast({ type: 'error', title: 'Erro', description: 'Não foi possível remover o usuário.' })
         }
-        setUsers([novoUsuarioComId, ...users])
     }
 
-    function updateUser(usuarioAtualizado: IUsuario) {
-        setUsers((lista) =>
-            lista.map((user) =>
-                user.id === usuarioAtualizado.id ? usuarioAtualizado : user
+    async function addUser(usuario: NovoUsuario) {
+        try {
+            const response = await api.post('/users', usuario)
+            setUsers((lista) => [...lista, response.data])
+            addToast({ type: 'success', title: 'Sucesso', description: 'Usuário criado.' })
+        } catch (error) {
+            addToast({ type: 'error', title: 'Erro', description: 'Email ou CPF já cadastrados.' })
+        }
+    }
+
+    async function updateUser(usuarioAtualizado: IUsuario) {
+        try {
+            const response = await api.put(`/users/${usuarioAtualizado.id}`, usuarioAtualizado)
+            setUsers((lista) =>
+                lista.map((user) =>
+                    user.id === usuarioAtualizado.id ? response.data : user
+                )
             )
-        )
+            addToast({ type: 'success', title: 'Sucesso', description: 'Usuário atualizado.' })
+        } catch (error) {
+            addToast({ type: 'error', title: 'Erro', description: 'Falha ao atualizar usuário.' })
+        }
     }
 
-    const value = {
-        users,
-        deleteUser,
-        addUser,
-        updateUser,
-    }
-
-    return <UserContext.Provider value={value}>{children}</UserContext.Provider>
+    return (
+        <UserContext.Provider value={{ users, deleteUser, addUser, updateUser }}>
+            {children}
+        </UserContext.Provider>
+    )
 }
 
 export function useUsers() {
-    const context = useContext(UserContext)
-    return context
+    return useContext(UserContext)
 }

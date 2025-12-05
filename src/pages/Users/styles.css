@@ -1,91 +1,164 @@
-.users-container {
+/* Container */
+.products-container,
+.users-container,
+.clients-container,
+.promotions-container {
     width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    animation: slideIn 0.4s ease-out;
 }
 
-.users-header {
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Cabeçalho */
+header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
-.users-header h1 {
+header h1 {
     font-size: 2rem;
+    color: #1e293b;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
 }
 
-.users-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: var(--color-surface);
-    box-shadow: var(--shadow-md);
-    border-radius: var(--border-radius);
-    overflow: hidden;
-}
-
-.users-table th,
-.users-table td {
-    padding: 1rem 1.25rem;
-    text-align: left;
-    border-bottom: 1px solid var(--color-border);
-}
-
-.users-table th {
-    background-color: var(--color-bg);
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-}
-
-.users-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.users-table tbody tr:hover {
-    background-color: var(--color-bg);
-}
-
-.user-actions {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.action-button {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    border: none;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.action-button:hover {
-    opacity: 0.8;
-}
-
-.edit-button {
-    background-color: var(--color-warning);
-    color: var(--color-text);
-}
-
-.delete-button {
-    background-color: var(--color-danger);
-    color: var(--color-surface);
-}
-
+/* Botão "Novo" (Estilo Premium) */
 .new-button {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
+    padding: 0.85rem 1.5rem;
+    font-size: 0.95rem;
     font-weight: 600;
-    color: var(--color-surface);
-    background-color: var(--color-success);
+    color: white;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #4f46e5 100%);
     border: none;
-    border-radius: var(--border-radius);
+    border-radius: 14px;
     cursor: pointer;
-    transition: var(--transition);
+    box-shadow: 0 8px 16px -4px rgba(99, 102, 241, 0.4);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .new-button:hover {
-    background-color: var(--color-success-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px -4px rgba(99, 102, 241, 0.5);
+}
+
+.new-button:active {
+    transform: translateY(0);
+}
+
+/* Tabela (O Cartão Principal) */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: white;
+    border-radius: 24px; /* Borda bem arredondada */
+    box-shadow: 
+        0 20px 25px -5px rgba(0, 0, 0, 0.05), 
+        0 10px 10px -5px rgba(0, 0, 0, 0.01);
+    overflow: hidden;
+}
+
+thead tr {
+    background-color: #f8fafc;
+}
+
+th {
+    padding: 1.25rem 1.5rem;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+td {
+    padding: 1.25rem 1.5rem;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 0.95rem;
+    vertical-align: middle;
+    transition: background-color 0.2s;
+}
+
+/* Linha Hover */
+tbody tr:hover td {
+    background-color: #f8fafc;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Estilos de Badges e Texto */
+td strong {
+    color: #0f172a;
+}
+
+/* Ações */
+.product-actions, .user-actions, .client-actions, .promotion-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.action-button {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #64748b;
+    background-color: transparent;
+}
+
+.edit-button:hover {
+    background-color: #eff6ff;
+    color: var(--color-primary);
+}
+
+.delete-button:hover {
+    background-color: #fef2f2;
+    color: var(--color-danger);
+}
+
+.add-promo-button {
+    background-color: #f0fdf4;
+    color: var(--color-success);
+    width: auto;
+    padding: 0 12px;
+}
+
+.add-promo-button:hover {
+    background-color: var(--color-success);
+    color: white;
+}
+
+/* Form Modal Styles (Overrides) */
+.form-group input, .form-group select, .form-group textarea {
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    padding: 0.85rem 1rem;
+    background-color: #f8fafc;
+}
+
+.form-group input:focus {
+    background-color: white;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
 }

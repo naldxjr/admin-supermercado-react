@@ -1,4 +1,3 @@
-/* Container */
 .products-container,
 .users-container,
 .clients-container,
@@ -14,7 +13,6 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Cabeçalho */
 header {
     display: flex;
     justify-content: space-between;
@@ -30,7 +28,6 @@ header h1 {
     margin-bottom: 0.5rem;
 }
 
-/* Botão "Novo" (Estilo Premium) */
 .new-button {
     padding: 0.85rem 1.5rem;
     font-size: 0.95rem;
@@ -56,13 +53,12 @@ header h1 {
     transform: translateY(0);
 }
 
-/* Tabela (O Cartão Principal) */
 table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
     background-color: white;
-    border-radius: 24px; /* Borda bem arredondada */
+    border-radius: 24px; 
     box-shadow: 
         0 20px 25px -5px rgba(0, 0, 0, 0.05), 
         0 10px 10px -5px rgba(0, 0, 0, 0.01);
@@ -102,12 +98,10 @@ tbody tr:last-child td {
     border-bottom: none;
 }
 
-/* Estilos de Badges e Texto */
 td strong {
     color: #0f172a;
 }
 
-/* Ações */
 .product-actions, .user-actions, .client-actions, .promotion-actions {
     display: flex;
     gap: 8px;
@@ -149,7 +143,6 @@ td strong {
     color: white;
 }
 
-/* Form Modal Styles (Overrides) */
 .form-group input, .form-group select, .form-group textarea {
     border-radius: 12px;
     border: 1px solid #e2e8f0;

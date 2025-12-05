@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2016",
+    "esModuleInterop": true,
+    "verbatimModuleSyntax": false,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": ".", 
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*", "prisma/**/*"]
+}

@@ -1,13 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-
 import { Login } from '../pages/Login'
 import { Products } from '../pages/Products'
 import { Promotions } from '../pages/Promotions'
 import { Users } from '../pages/Users'
 import { UserDetail } from '../pages/UserDetail'
-
 import { ProtectedRoute } from './ProtectedRoute'
 import { Layout } from '../components/Layout'
+import { Clients } from '../pages/Clients'
 
 const router = createBrowserRouter([
     {
@@ -43,6 +42,10 @@ const router = createBrowserRouter([
             {
                 path: '/user/:id',
                 element: <UserDetail />,
+            },
+            {
+                path: '/clients',
+                element: <Clients />,
             },
         ],
     },

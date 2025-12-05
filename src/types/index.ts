@@ -1,5 +1,3 @@
-
-
 export interface IProduto {
   id: string | number;
   nome: string;
@@ -16,4 +14,12 @@ export interface IUsuario {
   email: string;
   senha?: string;
   cpf: string;
+}
+
+export interface ICliente {
+  id: number;
+  nome: string;
+  identidade: string;
+  idade: number;
+  tempoCliente: number;
 }
